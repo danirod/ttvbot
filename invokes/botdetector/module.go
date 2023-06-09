@@ -3,7 +3,6 @@ package botdetector
 import (
 	"fmt"
 	"math/rand"
-	"strings"
 
 	"danirod.es/pkg/ttvbot/modules/botlist"
 	"danirod.es/pkg/ttvbot/modules/chatbot"
