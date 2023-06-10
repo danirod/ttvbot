@@ -8,6 +8,7 @@ import (
 	"danirod.es/pkg/ttvbot/modules/botlist"
 	"danirod.es/pkg/ttvbot/modules/chatbot"
 	"danirod.es/pkg/ttvbot/modules/database"
+	"danirod.es/pkg/ttvbot/modules/httpd"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 )
@@ -17,6 +18,7 @@ func main() {
 	app := fx.New(
 		fx.Provide(ttvbot.LoadConfig),
 		database.Module,
+		httpd.Module,
 		botlist.Module,
 		chatbot.Module,
 		fx.Invoke(roster.Invoke),

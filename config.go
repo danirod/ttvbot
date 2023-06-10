@@ -12,6 +12,7 @@ type Config struct {
 	TargetChannel string
 	IrcToken      string
 	AllowedBots   []string
+	HttpBind      string
 }
 
 func expectEnv(name string) string {
@@ -37,6 +38,7 @@ func LoadConfig() *Config {
 		BotUsername:   expectEnv("TTVBOT_USERNAME"),
 		TargetChannel: expectEnv("TTVBOT_TARGET"),
 		IrcToken:      expectEnv("TTVBOT_IRC_TOKEN"),
+		HttpBind:      expectEnv("TTVBOT_HTTPD_BIND"),
 		AllowedBots:   loadAllowedBots(),
 	}
 }

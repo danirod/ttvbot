@@ -2,6 +2,7 @@ package chatbot
 
 import (
 	"fmt"
+	"sync/atomic"
 
 	"github.com/gempir/go-twitch-irc/v4"
 )
@@ -40,6 +41,7 @@ type MessageFunc func(channel, username, content string, flags *MessageFlags)
 
 type Chatbot struct {
 	client        *twitch.Client
+	connected     atomic.Bool
 	botUsername   string
 	targetChannel string
 
@@ -86,6 +88,7 @@ func (bot *Chatbot) connect() error {
 		fmt.Println("The bot has joined", message.Channel)
 	})
 	bot.client.OnConnect(func() {
+		bot.connected.Store(true)
 		fmt.Println("The bot is connected to Twitch")
 	})
 
@@ -94,5 +97,6 @@ func (bot *Chatbot) connect() error {
 }
 
 func (bot *Chatbot) disconnect() error {
+	defer bot.connected.Store(false)
 	return bot.client.Disconnect()
 }
