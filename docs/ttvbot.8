@@ -33,6 +33,21 @@ Interact with the Twitch API via Helix, for things like banning users,
 changing the stream metadata (title, tags...) or changing the list
 of VIP users.
 
+.SS HTTP server
+To interact with the application using an RPC system, the application
+will spawn an HTTP server on boot. This HTTP server can be used to
+interact with the modules and to request information from the system,
+such as interact with the Twitch API via proxy.
+
+The list of endpoints are:
+
+.TP
+\fB/health\fR
+Healthcheck endpoint. Returns HTTP 200 if all the system components
+are OK, and HTTP 400 if at least one of the system components is not
+working properly. Also sends as body the self-report diagnostic,
+where each component is able to speak by itself.
+
 .SH ENVIRONMENT
 .TP
 \fBTTVBOT_USERNAME\fR
@@ -67,11 +82,24 @@ be on this list.
 The SQLite database used to store persistent data by the application
 and some modules.
 
-.SS AUTHORS
+.TP
+\fBTTVBOT_HTTP_BIND\fR
+The host and port where the HTTP server should be mapped. For instance,
+\fIlocalhost:6060\fR would bind the server to localhost and serve from
+the port 6060, and \fI0.0.0.0:4000\fR will bind the server on all
+interfaces and serve from the port 4000.
+
+.SH TO-DO TASKS
+.IP \(bu 3
+The HTTP server has no authentication mechanism, which means that it
+is very dangerous to bind this to public interfaces that are connected
+to the internet.
+
+.SH AUTHORS
 .B ttvbot
 is created and maintained by Dani Rodriguez.
 
-.SS COPYRIGHT
+.SH COPYRIGHT
 .B ttvbot
 is licensed under the terms of the zlib License. The source code is
 located at <\fIhttps://git.danirod.es/danirod/ttvbot\fR> or at
